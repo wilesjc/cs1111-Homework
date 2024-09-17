@@ -116,7 +116,7 @@ int main()
         }
 	default:
 	{
-		printf("Something went wrong, w not 0, 1, 2, 3, 4, 5, 6, or 7\n"); //w calculation error
+		printf("Something went wrong, w not 0, 1, 2, 3, 4, 5, or 6\n"); //w calculation error
 	}
 }
 return 0;
