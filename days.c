@@ -1,4 +1,5 @@
-/*
+/* Program with the purpose to find the day of the week given a date
+ *
  * CS1111 Week 3 Homework
  *
  * @author Jackson Wiles
