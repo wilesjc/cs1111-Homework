@@ -69,7 +69,16 @@ int main()
 	w = (((13 * (m + 1)) / 5) + (y / 4) + (c / 4) + d + y - (2 * c)) % 7;
 	//printf("w value %d\n", w); //Value test
 }
+//Check that w isn't negative
+{
+	if (w<0)
+	{
+		//printf("%d\n", w); //Verify w is negative
+		w=w+7; 
+		//printf("%d\n", w); //Check w math works
 
+	}
+}
 //Assigning "day" variable to correct day and printing answer
 	switch (w)
 {
