@@ -1,5 +1,15 @@
+/*
+ * This program takes a specifically formatted text file as a command line 
+ * 	input and displays the information is a sorted way
+ *
+ *@author Jackson Wiles
+ *@email jcwiles@mtu.edu
+ *@date 11/27/2024
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main()
 {
@@ -9,47 +19,83 @@ int main()
 		int id;
 		char name[20];
 		char bday[10];
+		int checked;
 	};
 	typedef struct Student_t student;
 
-	//Make an array of students that can be itterated through for reading and comparing data later
-//	student studentA[10];
+	//Make an array of students that can be itterated through for reading and 
+	//comparing data later
+	student studentA[10];
 
 	//Open file so data can be read
 	FILE *dataF;
-	dataF = fopen("student.txt", "r");
+	dataF = fopen( "student.txt", "r" );
 
-	//Make sure the file was opened so the rest of the code can work properly
-	if (dataF == NULL)
+	//Make sure the file was opened so the rest of the code can work 
+	//properly
+	if ( dataF == NULL )
 	{
-		printf("That file didn't open!\n");
+		printf( "That file didn't open!\n" );
 		return -1;
 	}
 
-	//Make space to store all of the data from the file so that there is room for it
-	char *dataSpace = malloc(1024);
-
-	//Make sure the space was allocated
-	if (dataSpace == NULL)
+	//Set the values of the Student array to false
+	for ( int i = 0; i < 10; i++ )
 	{
-		printf("Space wasn't allocated!\n");
-		return -1;
+		studentA[i].checked = 0;
 	}
-	
-	//Read data from file to compare birthdates
-	//fgets(dataSpace, 1024, dataF);
-	student studentTest[5];
-	studentTest[0].id = 5;
-//	fscanf(dataF, "%d%19c%9c", studentA[0].id, studentA[0].name, studentA[0].bday);
-	printf("%d%s%s\n", studentTest[0].id, studentTest[0].name, studentTest[0].bday);
+
+
+	//Read data from file to compare birthdates eventually
+	for ( int i = 0; i < 10; i++ )
+	{
+		fscanf( dataF, "%d %19s %9s", 
+				&studentA[i].id, &studentA[i].name, &studentA[i].bday );
+	}
 	//Compare each student's birthday to check for duplicates + print out matches
-	//
-	//
-	//
-	//
-	//
-	
-	//Cleanup (to avoid mempry leaks)-> dataF + dataSpace + 
-	fclose(dataF);
-	free(dataSpace);
+	char tempBD[10];
+	for ( int done = 0, i = 0; done < 10; )
+	{
+		//Make sure not to process students twice
+		if (studentA[i].checked == 1 )
+		{
+			i++;
+		}
+		else
+		{
+			strcpy( tempBD, studentA[i].bday );
+			printf( "\n%s: %s(%d)", tempBD, studentA[i].name, studentA[i].id );
+			studentA[i].checked = 1;
+			done++;
+
+			//Check for duplicate birthdays
+			for ( int j = 0; j < 10; )
+			{
+				//Make sure not to process students twice
+				if ( studentA[j].checked == 1 )
+				{
+					j++;
+				}
+				else if ( strcmp( tempBD, studentA[j].bday ) == 0 )
+				{
+					//Duplicate birthday
+					printf( ", %s(%d)", studentA[j].name, studentA[j].id );
+					studentA[j].checked = 1;
+					done++;
+				}
+				else
+				{
+					j++;
+				}
+			}
+		}
+	}
+	printf( "\n" ); //Newline to clean up printing
+
+	//Reset process counters on student array
+	for ( int i = 0; i < 10; i++ )
+        {
+                studentA[i].checked = 1;
+        }
+	fclose(dataF);	
 }
