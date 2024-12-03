@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main()
+int main (int argc, char **argv )
 {
 	//Create Structure for storing Student data
 	struct Student_t
@@ -29,7 +29,7 @@ int main()
 
 	//Open file so data can be read
 	FILE *dataF;
-	dataF = fopen( "student.txt", "r" );
+	dataF = fopen( argv[1], "r" );
 
 	//Make sure the file was opened so the rest of the code can work 
 	//properly
